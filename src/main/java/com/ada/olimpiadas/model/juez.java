@@ -1,6 +1,6 @@
 package com.ada.olimpiadas.model;
 
-public class Juez {
+public class Juez implements IPersona{
    
     private int id;
     private String nombre;
