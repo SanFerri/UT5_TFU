@@ -1,5 +1,8 @@
 package com.ada.olimpiadas.model;
 
-public class participante {
-    
+public class Participante implements IPersona {
+    private Puntaje[] puntaje;
+    public int getPuntajeTotal(){
+        
+    }
 }
