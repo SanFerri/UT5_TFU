@@ -1,8 +1,10 @@
 package com.ada.olimpiadas.model;
 
+import java.util.ArrayList;
+
 public class Categoria {
     private String nombre;
-    private Modalidad[] modalidad;
+    private ArrayList<Participante> participante;
 
     public String getNombre() {
         return nombre;
@@ -12,8 +14,8 @@ public class Categoria {
         this.nombre = nombre;
     }
 
-    public Modalidad[] getModalidad() {
-        return modalidad;
+    public ArrayList<Participante> getParticipante() {
+        return participante;
     }
 
 }
