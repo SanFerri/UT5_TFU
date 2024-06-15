@@ -13,7 +13,7 @@ public class Participante implements IPersona {
         }
 
         for (int i = 0; i < puntaje.size(); i++) {
-            total += puntaje.get(i).getPuntos();
+            total += puntaje.get(i).getValor();
         }
         total = total / puntaje.size();
         return total;
