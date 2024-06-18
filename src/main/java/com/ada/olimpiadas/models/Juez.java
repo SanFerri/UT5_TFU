@@ -4,7 +4,7 @@ public class Juez extends Persona {
 
     private int id;
     private String ci;
-    
+
     public int getId() {
         return id;
     }

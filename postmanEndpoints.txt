@@ -1,1 +1,2 @@
 GET http://localhost:8080/juez/listaJueces
+GET http://localhost:8080/juez/listaJueces/{ID}

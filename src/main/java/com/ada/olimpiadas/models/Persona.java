@@ -1,17 +1,17 @@
 package com.ada.olimpiadas.models;
 
 public class Persona {
-    private int ci;
+    private String ci;
     private String nombre;
     private String apellido;
-    private String correo;
-    private String contrasenia;
+    private String contacto;
+    private String email;
 
-    public int getId() {
+    public String getCi() {
         return ci;
     }
 
-    public void setId(int ci) {
+    public void setCi(String ci) {
         this.ci = ci;
     }
 
@@ -31,47 +31,20 @@ public class Persona {
         this.apellido = apellido;
     }
 
-    public String getCorreo() {
-        return correo;
+    public String getContacto() {
+        return contacto;
     }
 
-    public void setCorreo(String correo) {
-        this.correo = correo;
+    public void setContacto(String contacto) {
+        this.contacto = contacto;
     }
 
-    public String getContrasenia() {
-        return contrasenia;
+    public String getEmail() {
+        return email;
     }
 
-    public void setContrasenia(String contrasenia) {
-        this.contrasenia = contrasenia;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getCampeon() {
-        return campeon;
-    }
-
-    public void setCampeon(String campeon) {
-        this.campeon = campeon;
-    }
-
-    public String getSubcampeon() {
-        return subcampeon;
-    }
-
-    public void setSubcampeon(String subcampeon) {
-        this.subcampeon = subcampeon;
-    }
-
-    public String getCarrera() {
-        return carrera;
-    }
-
-    public void setCarrera(String carrera) {
-        this.carrera = carrera;
-    }
-
-    private String campeon;
-    private String subcampeon;
-    private String carrera;
 }
