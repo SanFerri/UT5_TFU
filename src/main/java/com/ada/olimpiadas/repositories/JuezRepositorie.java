@@ -15,6 +15,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 import com.ada.olimpiadas.models.Juez;
+import com.ada.olimpiadas.models.Participante;
 
 @Repository
 public class JuezRepositorie implements IJuezRepositorie {
@@ -84,6 +85,18 @@ public class JuezRepositorie implements IJuezRepositorie {
             e.printStackTrace();
         }
         return resultado;
+    }
+
+    @Override
+    public LinkedList<Participante> getParticipantes() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getParticipantes'");
+    }
+
+    @Override
+    public Participante getParticipante(int id) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getParticipante'");
     }
 
 }
