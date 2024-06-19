@@ -46,7 +46,7 @@ public class ParticipanteRepository implements IParticipanteRepository {
                 participante.setApellido(rs.getString("apellido"));
                 participante.setContacto(rs.getString("contacto"));
                 participante.setEmail(rs.getString("email"));
-                
+
                 resultado.add(participante);
             }
             con.close();
@@ -82,6 +82,82 @@ public class ParticipanteRepository implements IParticipanteRepository {
                 resultado.setApellido(rs.getString("apellido"));
                 resultado.setContacto(rs.getString("contacto"));
                 resultado.setEmail(rs.getString("email"));
+            }
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resultado;
+    }
+
+    @Override
+    public LinkedList<Participante> getParticipantesPorModalidad(int modalidadId) {
+        LinkedList<Participante> resultado = new LinkedList<>();
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/olimpiadas_db", "root", "olimpiadas");
+            String query = "SELECT Participante.*, "
+                    +
+                    "Persona.* " +
+                    "FROM Participante " +
+                    "JOIN Persona ON Participante.ci = Persona.ci where Participante.modalidad_id = ?";
+            PreparedStatement pstmt = con.prepareStatement(query);
+            pstmt.setInt(1, modalidadId);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                Participante participante = new Participante();
+                participante.setId(rs.getInt("id"));
+                participante.setCi(rs.getString("ci"));
+                participante.setEdad(rs.getInt("edad"));
+                participante.setPeso(rs.getInt("peso"));
+                participante.setModalidadId(rs.getInt("modalidad_id"));
+                participante.setNombre(rs.getString("nombre"));
+                participante.setApellido(rs.getString("apellido"));
+                participante.setContacto(rs.getString("contacto"));
+                participante.setEmail(rs.getString("email"));
+
+                resultado.add(participante);
+            }
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resultado;
+    }
+
+    @Override
+    public LinkedList<Participante> getParticipantesPorCategoria(int categoriaId) {
+        LinkedList<Participante> resultado = new LinkedList<>();
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/olimpiadas_db", "root", "olimpiadas");
+            String query = "SELECT Participante.id, Participante.ci, Participante.edad, Participante.peso, Participante.modalidad_id, "
+                    +
+                    "Persona.nombre, Persona.apellido, Persona.contacto, Persona.email " +
+                    "FROM Participante " +
+                    "JOIN Persona ON Participante.ci = Persona.ci " +
+                    "JOIN Participacion ON Participante.id = Participacion.participante_id " +
+                    "WHERE Participacion.categoria_id = ?";
+            PreparedStatement pstmt = con.prepareStatement(query);
+            pstmt.setInt(1, categoriaId);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                Participante participante = new Participante();
+                participante.setId(rs.getInt("id"));
+                participante.setCi(rs.getString("ci"));
+                participante.setEdad(rs.getInt("edad"));
+                participante.setPeso(rs.getInt("peso"));
+                participante.setModalidadId(rs.getInt("modalidad_id"));
+                participante.setNombre(rs.getString("nombre"));
+                participante.setApellido(rs.getString("apellido"));
+                participante.setContacto(rs.getString("contacto"));
+                participante.setEmail(rs.getString("email"));
+
+                resultado.add(participante);
             }
             con.close();
         } catch (Exception e) {

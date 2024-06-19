@@ -5,6 +5,8 @@ GET http://localhost:8080/juez/listaJueces/{ID}
 #Participantes
 GET http://localhost:8080/juez/listaParticipantes
 GET http://localhost:8080/juez/listaParticipantes{ID}
+GET http://localhost:8080/juez/categoria/{CategoriaID}/participantes
+GET http://localhost:8080/juez/modalidad/{ModalidadID}/participantes
 
 #Modalidades
 GET http://localhost:8080/juez/listaModalidades

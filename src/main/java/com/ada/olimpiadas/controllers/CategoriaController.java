@@ -10,8 +10,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ada.olimpiadas.models.Categoria;
 import com.ada.olimpiadas.models.Modalidad;
+import com.ada.olimpiadas.models.Participante;
 import com.ada.olimpiadas.repositories.ICategoriaRepository;
 import com.ada.olimpiadas.repositories.IModalidadRepository;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @RestController
 @RequestMapping("/juez")
@@ -29,4 +32,5 @@ public class CategoriaController {
     public Categoria getCategoriaID(@PathVariable int id) {
         return categoriaRepository.getCategoria(id);
     }
+    
 }
