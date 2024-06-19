@@ -19,3 +19,17 @@ GET http://localhost:8080/juez/listaCategorias/{ID}
 #Disciplinas
 GET http://localhost:8080/juez/listaDisciplinas
 GET http://localhost:8080/juez/listaDisciplinas/{ID}
+
+#Puntaje
+POST http://localhost:8080/juez/puntuar
+{
+    "juezId": 1,
+    "participanteId": 1,
+    "categoriaId": 1,
+    "valorTiempo": "00:15:30",
+    "valorDistancia": 10.5,
+    "valorEstilo": null,
+    "valorTecnica": 8.7,
+    "faltas": null,
+    "round": 1
+}

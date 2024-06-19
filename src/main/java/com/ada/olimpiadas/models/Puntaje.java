@@ -7,12 +7,12 @@ public class Puntaje {
     private int juezId;
     private int participanteId;
     private int categoriaId;
-    private Time valorTiempo;
+    private String valorTiempo;
     private Float valorDistancia;
     private Float valorEstilo;
     private Float valorTecnica;
-    private Short faltas;
-    private Short round;
+    private int faltas;
+    private int round;
 
     public int getId() {
         return id;
@@ -46,11 +46,11 @@ public class Puntaje {
         this.categoriaId = categoriaId;
     }
 
-    public Time getValorTiempo() {
+    public String getValorTiempo() {
         return valorTiempo;
     }
 
-    public void setValorTiempo(Time valorTiempo) {
+    public void setValorTiempo(String valorTiempo) {
         this.valorTiempo = valorTiempo;
     }
 
@@ -78,19 +78,19 @@ public class Puntaje {
         this.valorTecnica = valorTecnica;
     }
 
-    public Short getFaltas() {
+    public int getFaltas() {
         return faltas;
     }
 
-    public void setFaltas(Short faltas) {
+    public void setFaltas(int faltas) {
         this.faltas = faltas;
     }
 
-    public Short getRound() {
+    public int getRound() {
         return round;
     }
 
-    public void setRound(Short round) {
+    public void setRound(int round) {
         this.round = round;
     }
 
