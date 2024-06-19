@@ -1,2 +1,19 @@
+#Jueces
 GET http://localhost:8080/juez/listaJueces
 GET http://localhost:8080/juez/listaJueces/{ID}
+
+#Participantes
+GET http://localhost:8080/juez/listaParticipantes
+GET http://localhost:8080/juez/listaParticipantes{ID}
+
+#Modalidades
+GET http://localhost:8080/juez/listaModalidades
+GET http://localhost:8080/juez/listaModalidades/{ID}
+
+#Categorias
+GET http://localhost:8080/juez/listaCategorias
+GET http://localhost:8080/juez/listaCategorias/{ID}
+
+#Disciplinas
+GET http://localhost:8080/juez/listaDisciplinas
+GET http://localhost:8080/juez/listaDisciplinas/{ID}

@@ -11,16 +11,6 @@ public class Competencia {
     private Time hora;
     private String lugar;
 
-    public Competencia(int id, String nombre, int idModalidad, int idCategoria, Date fecha, Time hora, String lugar) {
-        this.id = id;
-        this.nombre = nombre;
-        this.idModalidad = idModalidad;
-        this.idCategoria = idCategoria;
-        this.fecha = fecha;
-        this.hora = hora;
-        this.lugar = lugar;
-    }
-
     public int getId() {
         return id;
     }

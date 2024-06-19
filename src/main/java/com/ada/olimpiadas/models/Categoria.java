@@ -8,19 +8,6 @@ public class Categoria {
     private int edadInicio;
     private int pesoInicio;
     private int pesoFin;
-
-    public Categoria(int id, int idModalidad, String sexo, int tamanoGrupo, int edadInicio, int edadFin,
-            int pesoInicio, int pesoFin) {
-        this.id = id;
-        this.idModalidad = idModalidad;
-        this.sexo = sexo;
-        this.tamanoGrupo = tamanoGrupo;
-        this.edadInicio = edadInicio;
-        this.edadFin = edadFin;
-        this.pesoInicio = pesoInicio;
-        this.pesoFin = pesoFin;
-    }
-
     private int edadFin;
 
     public int getId() {

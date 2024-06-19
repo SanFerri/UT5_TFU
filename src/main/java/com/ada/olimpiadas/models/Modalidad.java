@@ -3,26 +3,9 @@ package com.ada.olimpiadas.models;
 public class Modalidad {
 
     private int id;
-    private boolean mideTiempo;
-    private boolean mideAltura;
-    private boolean mideEstilo;
-    private boolean mideTecnica;
-    private boolean cuentaFaltas;
-    private short cantidadRounds;
-
-    public Modalidad(int id, boolean mideTiempo, boolean mideDistancia, boolean mideAltura, boolean mideEstilo,
-            boolean mideTecnica, boolean cuentaFaltas, short cantidadRounds) {
-        this.id = id;
-        this.mideTiempo = mideTiempo;
-        this.mideDistancia = mideDistancia;
-        this.mideAltura = mideAltura;
-        this.mideEstilo = mideEstilo;
-        this.mideTecnica = mideTecnica;
-        this.cuentaFaltas = cuentaFaltas;
-        this.cantidadRounds = cantidadRounds;
-    }
-
-    private boolean mideDistancia;
+    private String nombre;
+    private int disciplina_id;
+    private int puntaje_id;
 
     public int getId() {
         return id;
@@ -32,60 +15,29 @@ public class Modalidad {
         this.id = id;
     }
 
-    public boolean isMideTiempo() {
-        return mideTiempo;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setMideTiempo(boolean mideTiempo) {
-        this.mideTiempo = mideTiempo;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
-    public boolean isMideDistancia() {
-        return mideDistancia;
+    public int getDisciplina_id() {
+        return disciplina_id;
     }
 
-    public void setMideDistancia(boolean mideDistancia) {
-        this.mideDistancia = mideDistancia;
+    public void setDisciplina_id(int disciplina_id) {
+        this.disciplina_id = disciplina_id;
     }
 
-    public boolean isMideAltura() {
-        return mideAltura;
+    public int getPuntaje_id() {
+        return puntaje_id;
     }
 
-    public void setMideAltura(boolean mideAltura) {
-        this.mideAltura = mideAltura;
+    public void setPuntaje_id(int puntaje_id) {
+        this.puntaje_id = puntaje_id;
     }
 
-    public boolean isMideEstilo() {
-        return mideEstilo;
-    }
-
-    public void setMideEstilo(boolean mideEstilo) {
-        this.mideEstilo = mideEstilo;
-    }
-
-    public boolean isMideTecnica() {
-        return mideTecnica;
-    }
-
-    public void setMideTecnica(boolean mideTecnica) {
-        this.mideTecnica = mideTecnica;
-    }
-
-    public boolean isCuentaFaltas() {
-        return cuentaFaltas;
-    }
-
-    public void setCuentaFaltas(boolean cuentaFaltas) {
-        this.cuentaFaltas = cuentaFaltas;
-    }
-
-    public short getCantidadRounds() {
-        return cantidadRounds;
-    }
-
-    public void setCantidadRounds(short cantidadRounds) {
-        this.cantidadRounds = cantidadRounds;
-    }
 
 }

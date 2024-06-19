@@ -9,11 +9,6 @@ public class Disciplina {
         return nombre;
     }
 
-    public Disciplina(String nombre, int id) {
-        this.nombre = nombre;
-        this.id = id;
-    }
-
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }

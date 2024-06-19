@@ -11,16 +11,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ada.olimpiadas.models.Juez;
 import com.ada.olimpiadas.models.Participante;
-import com.ada.olimpiadas.repositories.IJuezRepositorie;
+import com.ada.olimpiadas.repositories.IJuezRepository;
 
 @RestController
 @RequestMapping("/juez")
 public class JuezController {
 
-    private IJuezRepositorie juezRepository;
+    private IJuezRepository juezRepository;
 
     @Autowired
-    public JuezController(IJuezRepositorie juezRepository) {
+    public JuezController(IJuezRepository juezRepository) {
         this.juezRepository = juezRepository;
     }
 
@@ -33,15 +33,4 @@ public class JuezController {
     public @ResponseBody Juez getJuecesID(@PathVariable int id) {
         return juezRepository.getJuez(id);
     }
-
-    @GetMapping(path = "/listaParticipantes")
-    public @ResponseBody LinkedList<Participante> getParticipantes() {
-        return juezRepository.getParticipantes();
-    }
-
-    @GetMapping(path = "listaParticipantes/{id}")
-    public @ResponseBody Participante getParticipantesID(@PathVariable int id) {
-        return juezRepository.getParticipante(id);
-    }
-
 }
