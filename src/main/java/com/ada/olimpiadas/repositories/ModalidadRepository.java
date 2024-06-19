@@ -1,24 +1,15 @@
 package com.ada.olimpiadas.repositories;
 
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.LinkedList;
-
-import org.springframework.scheduling.annotation.Async;
-import org.springframework.stereotype.Repository;
-
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.LinkedList;
 
-import com.ada.olimpiadas.models.Categoria;
-import com.ada.olimpiadas.models.Disciplina;
-import com.ada.olimpiadas.models.Juez;
+import org.springframework.stereotype.Repository;
+
 import com.ada.olimpiadas.models.Modalidad;
-import com.ada.olimpiadas.models.Participante;
 
 @Repository
 public class ModalidadRepository implements IModalidadRepository {
@@ -26,13 +17,9 @@ public class ModalidadRepository implements IModalidadRepository {
     @Override
     public LinkedList<Modalidad> getModalidades() {
         LinkedList<Modalidad> resultado = new LinkedList<>();
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/olimpiadas_db", "root", "olimpiadas");
+        try (Connection con = DatabaseConnection.getInstance().getConnection()) {
             Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery(
-                    "SELECT * FROM Modalidad ");
+            ResultSet rs = stmt.executeQuery("SELECT * FROM Modalidad");
 
             while (rs.next()) {
                 Modalidad mod = new Modalidad();
@@ -43,9 +30,8 @@ public class ModalidadRepository implements IModalidadRepository {
 
                 resultado.add(mod);
             }
-            con.close();
-        } catch (Exception e) {
-            System.out.println(e);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         return resultado;
     }
@@ -53,11 +39,8 @@ public class ModalidadRepository implements IModalidadRepository {
     @Override
     public Modalidad getModalidad(int id) {
         Modalidad resultado = new Modalidad();
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/olimpiadas_db", "root", "olimpiadas");
-            String query = "SELECT * FROM Modalidad where id = ?";
+        try (Connection con = DatabaseConnection.getInstance().getConnection()) {
+            String query = "SELECT * FROM Modalidad WHERE id = ?";
             PreparedStatement pstmt = con.prepareStatement(query);
             pstmt.setInt(1, id);
             ResultSet rs = pstmt.executeQuery();
@@ -67,11 +50,9 @@ public class ModalidadRepository implements IModalidadRepository {
                 resultado.setDisciplina_id(rs.getInt("disciplina_id"));
                 resultado.setNombre(rs.getString("nombre"));
             }
-            con.close();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return resultado;
     }
-
 }

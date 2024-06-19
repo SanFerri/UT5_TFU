@@ -1,20 +1,14 @@
 package com.ada.olimpiadas.repositories;
 
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.LinkedList;
-
-import org.springframework.scheduling.annotation.Async;
-import org.springframework.stereotype.Repository;
-
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.LinkedList;
 
-import com.ada.olimpiadas.models.Juez;
+import org.springframework.stereotype.Repository;
+
 import com.ada.olimpiadas.models.Participante;
 
 @Repository
@@ -23,17 +17,13 @@ public class ParticipanteRepository implements IParticipanteRepository {
     @Override
     public LinkedList<Participante> getParticipantes() {
         LinkedList<Participante> resultado = new LinkedList<>();
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/olimpiadas_db", "root", "olimpiadas");
+        try (Connection con = DatabaseConnection.getInstance().getConnection()) {
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(
                     "SELECT Participante.id, Participante.ci, Participante.edad, Participante.peso, Participante.modalidad_id, "
-                            +
-                            "Persona.nombre, Persona.apellido, Persona.contacto, Persona.email " +
-                            "FROM Participante " +
-                            "JOIN Persona ON Participante.ci = Persona.ci");
+                            + "Persona.nombre, Persona.apellido, Persona.contacto, Persona.email "
+                            + "FROM Participante "
+                            + "JOIN Persona ON Participante.ci = Persona.ci");
 
             while (rs.next()) {
                 Participante participante = new Participante();
@@ -49,8 +39,7 @@ public class ParticipanteRepository implements IParticipanteRepository {
 
                 resultado.add(participante);
             }
-            con.close();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return resultado;
@@ -59,15 +48,11 @@ public class ParticipanteRepository implements IParticipanteRepository {
     @Override
     public Participante getParticipante(int id) {
         Participante resultado = new Participante();
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/olimpiadas_db", "root", "olimpiadas");
+        try (Connection con = DatabaseConnection.getInstance().getConnection()) {
             String query = "SELECT Participante.id, Participante.ci, Participante.edad, Participante.peso, Participante.modalidad_id, "
-                    +
-                    "Persona.nombre, Persona.apellido, Persona.contacto, Persona.email " +
-                    "FROM Participante " +
-                    "JOIN Persona ON Participante.ci = Persona.ci WHERE Participante.id = ?";
+                    + "Persona.nombre, Persona.apellido, Persona.contacto, Persona.email "
+                    + "FROM Participante "
+                    + "JOIN Persona ON Participante.ci = Persona.ci WHERE Participante.id = ?";
             PreparedStatement pstmt = con.prepareStatement(query);
             pstmt.setInt(1, id);
             ResultSet rs = pstmt.executeQuery();
@@ -83,8 +68,7 @@ public class ParticipanteRepository implements IParticipanteRepository {
                 resultado.setContacto(rs.getString("contacto"));
                 resultado.setEmail(rs.getString("email"));
             }
-            con.close();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return resultado;
@@ -93,15 +77,10 @@ public class ParticipanteRepository implements IParticipanteRepository {
     @Override
     public LinkedList<Participante> getParticipantesPorModalidad(int modalidadId) {
         LinkedList<Participante> resultado = new LinkedList<>();
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/olimpiadas_db", "root", "olimpiadas");
-            String query = "SELECT Participante.*, "
-                    +
-                    "Persona.* " +
-                    "FROM Participante " +
-                    "JOIN Persona ON Participante.ci = Persona.ci where Participante.modalidad_id = ?";
+        try (Connection con = DatabaseConnection.getInstance().getConnection()) {
+            String query = "SELECT Participante.*, Persona.* "
+                    + "FROM Participante "
+                    + "JOIN Persona ON Participante.ci = Persona.ci where Participante.modalidad_id = ?";
             PreparedStatement pstmt = con.prepareStatement(query);
             pstmt.setInt(1, modalidadId);
             ResultSet rs = pstmt.executeQuery();
@@ -120,8 +99,7 @@ public class ParticipanteRepository implements IParticipanteRepository {
 
                 resultado.add(participante);
             }
-            con.close();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return resultado;
@@ -130,17 +108,13 @@ public class ParticipanteRepository implements IParticipanteRepository {
     @Override
     public LinkedList<Participante> getParticipantesPorCategoria(int categoriaId) {
         LinkedList<Participante> resultado = new LinkedList<>();
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/olimpiadas_db", "root", "olimpiadas");
+        try (Connection con = DatabaseConnection.getInstance().getConnection()) {
             String query = "SELECT Participante.id, Participante.ci, Participante.edad, Participante.peso, Participante.modalidad_id, "
-                    +
-                    "Persona.nombre, Persona.apellido, Persona.contacto, Persona.email " +
-                    "FROM Participante " +
-                    "JOIN Persona ON Participante.ci = Persona.ci " +
-                    "JOIN Participacion ON Participante.id = Participacion.participante_id " +
-                    "WHERE Participacion.categoria_id = ?";
+                    + "Persona.nombre, Persona.apellido, Persona.contacto, Persona.email "
+                    + "FROM Participante "
+                    + "JOIN Persona ON Participante.ci = Persona.ci "
+                    + "JOIN Participacion ON Participante.id = Participacion.participante_id "
+                    + "WHERE Participacion.categoria_id = ?";
             PreparedStatement pstmt = con.prepareStatement(query);
             pstmt.setInt(1, categoriaId);
             ResultSet rs = pstmt.executeQuery();
@@ -159,11 +133,9 @@ public class ParticipanteRepository implements IParticipanteRepository {
 
                 resultado.add(participante);
             }
-            con.close();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return resultado;
     }
-
 }

@@ -1,21 +1,16 @@
 package com.ada.olimpiadas.repositories;
 
-import java.sql.DriverManager;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.LinkedList;
 
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
-
 import com.ada.olimpiadas.models.Juez;
-import com.ada.olimpiadas.models.Participante;
 
 @Repository
 public class JuezRepository implements IJuezRepository {
@@ -24,10 +19,7 @@ public class JuezRepository implements IJuezRepository {
     @Async
     public LinkedList<Juez> getJueces() {
         LinkedList<Juez> resultado = new LinkedList<>();
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/olimpiadas_db", "root", "olimpiadas");
+        try (Connection con = DatabaseConnection.getInstance().getConnection()) {
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(
                     "SELECT Juez.id, Juez.ci, Persona.nombre, Persona.apellido, Persona.contacto, Persona.email " +
@@ -44,9 +36,8 @@ public class JuezRepository implements IJuezRepository {
                 juez.setEmail(rs.getString("email"));
                 resultado.add(juez);
             }
-            con.close();
-        } catch (Exception e) {
-            System.out.println(e);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         return resultado;
     }
@@ -60,10 +51,7 @@ public class JuezRepository implements IJuezRepository {
     @Override
     public Juez getJuez(int id) {
         Juez resultado = new Juez();
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/olimpiadas_db", "root", "olimpiadas");
+        try (Connection con = DatabaseConnection.getInstance().getConnection()) {
             String query = "SELECT Juez.id, Juez.ci, Persona.nombre, Persona.apellido, Persona.contacto, Persona.email "
                     +
                     "FROM Juez " +
@@ -80,11 +68,9 @@ public class JuezRepository implements IJuezRepository {
                 resultado.setContacto(rs.getString("contacto"));
                 resultado.setEmail(rs.getString("email"));
             }
-            con.close();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return resultado;
     }
-
 }

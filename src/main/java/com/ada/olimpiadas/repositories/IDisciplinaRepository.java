@@ -2,7 +2,6 @@ package com.ada.olimpiadas.repositories;
 
 import java.util.LinkedList;
 
-import com.ada.olimpiadas.models.Categoria;
 import com.ada.olimpiadas.models.Disciplina;
 
 public interface IDisciplinaRepository {

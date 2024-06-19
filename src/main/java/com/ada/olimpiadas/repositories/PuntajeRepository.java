@@ -1,21 +1,14 @@
 package com.ada.olimpiadas.repositories;
 
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.LinkedList;
-
-import org.springframework.scheduling.annotation.Async;
-import org.springframework.stereotype.Repository;
-
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.LinkedList;
 
-import com.ada.olimpiadas.models.Juez;
-import com.ada.olimpiadas.models.Participante;
+import org.springframework.stereotype.Repository;
+
 import com.ada.olimpiadas.models.Puntaje;
 
 @Repository
@@ -23,11 +16,7 @@ public class PuntajeRepository implements IPuntajeRepository {
 
     @Override
     public void guardarPuntaje(Puntaje puntaje) {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/olimpiadas_db", "root",
-                    "olimpiadas");
-
+        try (Connection con = DatabaseConnection.getInstance().getConnection()) {
             String query = "INSERT INTO Puntaje (juez_id, participante_id, categoria_id, valor_tiempo, valor_distancia, valor_estilo, valor_tecnica, faltas, round) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement pstmt = con.prepareStatement(query);
 
@@ -72,8 +61,7 @@ public class PuntajeRepository implements IPuntajeRepository {
             }
 
             pstmt.executeUpdate();
-            con.close();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
@@ -81,13 +69,9 @@ public class PuntajeRepository implements IPuntajeRepository {
     @Override
     public LinkedList<Puntaje> getCalificados() {
         LinkedList<Puntaje> resultado = new LinkedList<>();
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/olimpiadas_db", "root", "olimpiadas");
+        try (Connection con = DatabaseConnection.getInstance().getConnection()) {
             Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery(
-                    "SELECT * FROM Puntaje");
+            ResultSet rs = stmt.executeQuery("SELECT * FROM Puntaje");
 
             while (rs.next()) {
                 Puntaje puntaje = new Puntaje();
@@ -102,11 +86,9 @@ public class PuntajeRepository implements IPuntajeRepository {
                 puntaje.setFaltas(rs.getInt("faltas"));
                 puntaje.setRound(rs.getInt("round"));
                 resultado.add(puntaje);
-
             }
-            con.close();
-        } catch (Exception e) {
-            System.out.println(e);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         return resultado;
     }

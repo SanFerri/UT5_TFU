@@ -1,24 +1,15 @@
 package com.ada.olimpiadas.repositories;
 
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.LinkedList;
-
-import org.springframework.scheduling.annotation.Async;
-import org.springframework.stereotype.Repository;
-
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.LinkedList;
 
-import com.ada.olimpiadas.models.Categoria;
+import org.springframework.stereotype.Repository;
+
 import com.ada.olimpiadas.models.Disciplina;
-import com.ada.olimpiadas.models.Juez;
-import com.ada.olimpiadas.models.Modalidad;
-import com.ada.olimpiadas.models.Participante;
 
 @Repository
 public class DisciplinaRepository implements IDisciplinaRepository {
@@ -26,13 +17,9 @@ public class DisciplinaRepository implements IDisciplinaRepository {
     @Override
     public LinkedList<Disciplina> getDisciplinas() {
         LinkedList<Disciplina> resultado = new LinkedList<>();
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/olimpiadas_db", "root", "olimpiadas");
+        try (Connection con = DatabaseConnection.getInstance().getConnection()) {
             Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery(
-                    "SELECT * FROM Disciplina");
+            ResultSet rs = stmt.executeQuery("SELECT * FROM Disciplina");
 
             while (rs.next()) {
                 Disciplina mod = new Disciplina();
@@ -41,9 +28,8 @@ public class DisciplinaRepository implements IDisciplinaRepository {
 
                 resultado.add(mod);
             }
-            con.close();
-        } catch (Exception e) {
-            System.out.println(e);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         return resultado;
     }
@@ -51,11 +37,8 @@ public class DisciplinaRepository implements IDisciplinaRepository {
     @Override
     public Disciplina getDisciplina(int id) {
         Disciplina resultado = new Disciplina();
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/olimpiadas_db", "root", "olimpiadas");
-            String query = "SELECT * FROM Disciplina where id = ?";
+        try (Connection con = DatabaseConnection.getInstance().getConnection()) {
+            String query = "SELECT * FROM Disciplina WHERE id = ?";
             PreparedStatement pstmt = con.prepareStatement(query);
             pstmt.setInt(1, id);
             ResultSet rs = pstmt.executeQuery();
@@ -64,11 +47,9 @@ public class DisciplinaRepository implements IDisciplinaRepository {
                 resultado.setId(rs.getInt("id"));
                 resultado.setNombre(rs.getString("nombre"));
             }
-            con.close();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return resultado;
     }
-
 }

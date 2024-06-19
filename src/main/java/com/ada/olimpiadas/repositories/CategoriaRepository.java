@@ -1,23 +1,15 @@
 package com.ada.olimpiadas.repositories;
 
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.LinkedList;
-
-import org.springframework.scheduling.annotation.Async;
-import org.springframework.stereotype.Repository;
-
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.LinkedList;
+
+import org.springframework.stereotype.Repository;
 
 import com.ada.olimpiadas.models.Categoria;
-import com.ada.olimpiadas.models.Disciplina;
-import com.ada.olimpiadas.models.Juez;
-import com.ada.olimpiadas.models.Participante;
 
 @Repository
 public class CategoriaRepository implements ICategoriaRepository {
@@ -25,13 +17,9 @@ public class CategoriaRepository implements ICategoriaRepository {
     @Override
     public LinkedList<Categoria> getCategorias() {
         LinkedList<Categoria> resultado = new LinkedList<>();
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/olimpiadas_db", "root", "olimpiadas");
+        try (Connection con = DatabaseConnection.getInstance().getConnection()) {
             Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery(
-                    "SELECT * FROM Categoria");
+            ResultSet rs = stmt.executeQuery("SELECT * FROM Categoria");
 
             while (rs.next()) {
                 Categoria mod = new Categoria();
@@ -44,25 +32,19 @@ public class CategoriaRepository implements ICategoriaRepository {
                 mod.setPesoFin(rs.getInt("peso_fin"));
                 mod.setTamanoGrupo(rs.getInt("tamano_grupo"));
 
-
                 resultado.add(mod);
             }
-            con.close();
-        } catch (Exception e) {
-            System.out.println(e);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         return resultado;
     }
 
     @Override
     public Categoria getCategoria(int id) {
-
         Categoria resultado = new Categoria();
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/olimpiadas_db", "root", "olimpiadas");
-            String query = "SELECT * FROM Categoria where id = ?";
+        try (Connection con = DatabaseConnection.getInstance().getConnection()) {
+            String query = "SELECT * FROM Categoria WHERE id = ?";
             PreparedStatement pstmt = con.prepareStatement(query);
             pstmt.setInt(1, id);
             ResultSet rs = pstmt.executeQuery();
@@ -76,17 +58,10 @@ public class CategoriaRepository implements ICategoriaRepository {
                 resultado.setPesoInicio(rs.getInt("peso_inicio"));
                 resultado.setPesoFin(rs.getInt("peso_fin"));
                 resultado.setTamanoGrupo(rs.getInt("tamano_grupo"));
-
-
-
             }
-            con.close();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return resultado;
     }
-
-
-
 }
