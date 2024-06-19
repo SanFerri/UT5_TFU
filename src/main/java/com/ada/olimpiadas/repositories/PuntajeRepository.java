@@ -77,4 +77,37 @@ public class PuntajeRepository implements IPuntajeRepository {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public LinkedList<Puntaje> getCalificados() {
+        LinkedList<Puntaje> resultado = new LinkedList<>();
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/olimpiadas_db", "root", "olimpiadas");
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(
+                    "SELECT * FROM Puntaje");
+
+            while (rs.next()) {
+                Puntaje puntaje = new Puntaje();
+                puntaje.setId(rs.getInt("id"));
+                puntaje.setJuezId(rs.getInt("juez_id"));
+                puntaje.setParticipanteId(rs.getInt("participante_id"));
+                puntaje.setCategoriaId(rs.getInt("categoria_id"));
+                puntaje.setValorTiempo(rs.getString("valor_tiempo"));
+                puntaje.setValorDistancia(rs.getFloat("valor_distancia"));
+                puntaje.setValorEstilo(rs.getFloat("valor_estilo"));
+                puntaje.setValorTecnica(rs.getFloat("valor_tecnica"));
+                puntaje.setFaltas(rs.getInt("faltas"));
+                puntaje.setRound(rs.getInt("round"));
+                resultado.add(puntaje);
+
+            }
+            con.close();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return resultado;
+    }
 }

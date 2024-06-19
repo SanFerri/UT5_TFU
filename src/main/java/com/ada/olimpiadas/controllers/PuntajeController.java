@@ -1,5 +1,6 @@
 package com.ada.olimpiadas.controllers;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ import com.ada.olimpiadas.repositories.IModalidadRepository;
 import com.ada.olimpiadas.repositories.IPuntajeRepository;
 
 import org.springframework.web.bind.annotation.RequestParam;
-
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @RestController
 @RequestMapping("/juez")
@@ -29,7 +30,7 @@ public class PuntajeController {
     @Autowired
     private IPuntajeRepository puntajeRepository;
 
- @PostMapping("/puntuar")
+    @PostMapping("/puntuar")
     public ResponseEntity<String> puntuar(@RequestBody Puntaje puntaje) {
         try {
             puntajeRepository.guardarPuntaje(puntaje);
@@ -37,5 +38,10 @@ public class PuntajeController {
         } catch (Exception e) {
             return ResponseEntity.status(500).body("Error al guardar la puntuación: " + e.getMessage());
         }
+    }
+
+    @GetMapping("/listaCalificados")
+    public @ResponseBody LinkedList<Puntaje> getCalificados() {
+        return puntajeRepository.getCalificados();
     }
 }

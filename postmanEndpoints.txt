@@ -21,6 +21,7 @@ GET http://localhost:8080/juez/listaDisciplinas
 GET http://localhost:8080/juez/listaDisciplinas/{ID}
 
 #Puntaje
+GET http://localhost:8080/juez/listaCalificados
 POST http://localhost:8080/juez/puntuar
 {
     "juezId": 1,
