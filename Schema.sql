@@ -233,3 +233,16 @@ INSERT INTO Participante (ci, edad, peso, modalidad_id) VALUES
 ('2233445566', 29, 63, 1), -- Carmen Ruiz en 400 metros
 ('3344556677', 23, 70, 1), -- Pedro Gutiérrez en 400 metros
 ('7788990011', 31, 82, 2); -- José Torres en 4x100 metros
+
+-- Inserciones de prueba en Participacion
+INSERT INTO Participacion (participante_id, categoria_id) VALUES
+(1, 1), -- Juan Pérez en categoría masculina individual de 400 metros
+(2, 2), -- Carlos López en categoría masculina de equipo de 4x100 metros
+(3, 1), -- Luis Rodríguez en categoría masculina individual de 400 metros
+(4, 10), -- Miguel Sánchez en categoría masculina de equipo de 4x400 metros
+(5, 3), -- Ana Martínez en categoría femenina individual de 400 metros
+(6, 4), -- María Gómez en categoría femenina de equipo de 4x100 metros
+(7, 11), -- Laura Fernández en categoría femenina de equipo de 4x400 metros
+(8, 3), -- Carmen Ruiz en categoría femenina individual de 400 metros
+(9, 1), -- Pedro Gutiérrez en categoría masculina individual de 400 metros
+(10, 2); -- José Torres en categoría masculina de equipo de 4x100 metros
