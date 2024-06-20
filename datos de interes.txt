@@ -4,7 +4,8 @@ https://www.figma.com/design/lm8UPo5T4UyXMwb0lIqORy/TFU5?node-id=11-1833&t=GmK1y
 al correr el codigo se puede utilizar el swagger mediante la web:
 http://localhost:8080/swagger-ui/index.html#/
 
+Olimpiadas API.postman_collection.json
+Es un archivo listo para importar en postman.
 
-datos a considerar:
-la data base se tiene que crear de manera local, esta el schrema.sql para ello.
+la data base se tiene que crear de manera local, esta el schrema.sql para ello, este proyecto requiere de java jdk 17.
 
