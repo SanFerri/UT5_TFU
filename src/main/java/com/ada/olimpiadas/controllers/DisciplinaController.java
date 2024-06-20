@@ -8,12 +8,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ada.olimpiadas.models.Categoria;
 import com.ada.olimpiadas.models.Disciplina;
-import com.ada.olimpiadas.models.Modalidad;
-import com.ada.olimpiadas.repositories.ICategoriaRepository;
 import com.ada.olimpiadas.repositories.IDisciplinaRepository;
-import com.ada.olimpiadas.repositories.IModalidadRepository;
 
 @RestController
 @RequestMapping("/juez")
