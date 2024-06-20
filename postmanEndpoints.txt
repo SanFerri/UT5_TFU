@@ -1,32 +1,36 @@
 #Jueces
 GET http://localhost:8080/juez/listaJueces
-GET http://localhost:8080/juez/listaJueces/{ID}
+GET http://localhost:8080/juez/login?juezId=3&password=password123
+GET http://localhost:8080/juez/listaJueces/1
+
 
 #Participantes
-GET http://localhost:8080/juez/listaParticipantes
-GET http://localhost:8080/juez/listaParticipantes{ID}
-GET http://localhost:8080/juez/categoria/{CategoriaID}/participantes
-GET http://localhost:8080/juez/modalidad/{ModalidadID}/participantes
+GET http://localhost:8080/participantes/listaParticipantes
+GET http://localhost:8080/participantes/listaParticipantes/equipo/2
+GET http://localhost:8080/participantes/listaParticipantes
+GET http://localhost:8080/participantes/listaParticipantes/1
+GET http://localhost:8080/participantes/listaParticipantes/categoria/1
+GET http://localhost:8080/participantes/listaParticipantes/modalidad/1
 
 #Modalidades
-GET http://localhost:8080/juez/listaModalidades
-GET http://localhost:8080/juez/listaModalidades/{ID}
+GET http://localhost:8080/modalidad/listaModalidades
+GET hhttp://localhost:8080/modalidad/listaModalidades/1
 
 #Categorias
-GET http://localhost:8080/juez/listaCategorias
-GET http://localhost:8080/juez/listaCategorias/{ID}
+GET http://localhost:8080/categoria/listaCategorias
+GET http://localhost:8080/categoria/listaCategorias/1
 
 #Disciplinas
-GET http://localhost:8080/juez/listaDisciplinas
-GET http://localhost:8080/juez/listaDisciplinas/{ID}
+GET http://localhost:8080/disciplina/listaDisciplinas
+GET http://localhost:8080/disciplina/listaDisciplinas/1
 
 #Puntaje
-GET http://localhost:8080/juez/listaCalificados
-POST http://localhost:8080/juez/puntuar
+GET http://localhost:8080/puntaje/listaCalificados
+POST http://localhost:8080/puntaje/puntuar
 {
-    "juezId": 1,
+    "juezId": 2,
     "participanteId": 1,
-    "categoriaId": 1,
+    "categoriaId": 2,
     "valorTiempo": "00:15:30",
     "valorDistancia": 10.5,
     "valorEstilo": null,
@@ -34,3 +38,9 @@ POST http://localhost:8080/juez/puntuar
     "faltas": null,
     "round": 1
 }
+
+#equipo
+GET http://localhost:8080/equipos/listaEquipos
+
+#TipoPuntaje
+GET http://localhost:8080/TipoPuntaje/TipoPuntajePorModalidad/1

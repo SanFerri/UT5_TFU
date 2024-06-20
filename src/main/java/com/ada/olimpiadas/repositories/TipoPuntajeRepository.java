@@ -4,14 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.LinkedList;
+
 
 import org.springframework.stereotype.Repository;
-
-import com.ada.olimpiadas.models.Modalidad;
-import com.ada.olimpiadas.models.Participante;
-import com.ada.olimpiadas.models.Puntaje;
 import com.ada.olimpiadas.models.TipoPuntaje;
 
 @Repository

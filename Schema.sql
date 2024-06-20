@@ -253,7 +253,6 @@ INSERT INTO Juez (ci) VALUES
 ('6677889900'); -- Ana Martínez
 
 
--- Inserciones de prueba en Participacion
 INSERT INTO Participacion (participante_id, categoria_id) VALUES
 (1, 1), -- Juan Pérez en categoría masculina individual de 400 metros
 (2, 2), -- Carlos López en categoría masculina de equipo de 4x100 metros
@@ -266,7 +265,6 @@ INSERT INTO Participacion (participante_id, categoria_id) VALUES
 (9, 1), -- Pedro Gutiérrez en categoría masculina individual de 400 metros
 (10, 2); -- José Torres en categoría masculina de equipo de 4x100 metros
 
--- Ejemplo de inserciones en la tabla Login (asegúrate de cifrar las contraseñas)
 INSERT INTO Login (username, password, juez_id) VALUES
 ('juanperez', 'ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f', 1),
 ('carloslopez', 'ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f', 2),

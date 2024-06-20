@@ -1,1 +1,0 @@
-Singleton: se utiliza este patron para tener una unica instancia de la copnexion a la base de datos
