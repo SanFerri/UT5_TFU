@@ -10,4 +10,6 @@ public interface IJuezRepository {
 
     public Juez getJuez(int id);
 
+    public Juez getJuezByCredentials(int juezId, String password);
+
 }

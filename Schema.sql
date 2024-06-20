@@ -111,6 +111,14 @@ create table Competencia(
     lugar VARCHAR(20) NOT NULL
 );
 
+CREATE TABLE Login (
+    id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    password VARCHAR(100) NOT NULL, -- Almacenar contraseñas cifradas
+    juez_id INT NOT NULL,
+    FOREIGN KEY (juez_id) REFERENCES Juez(id)
+);
+
 INSERT INTO
     Disciplina (nombre)
 VALUES
@@ -256,3 +264,12 @@ INSERT INTO Participacion (participante_id, categoria_id) VALUES
 (8, 3), -- Carmen Ruiz en categoría femenina individual de 400 metros
 (9, 1), -- Pedro Gutiérrez en categoría masculina individual de 400 metros
 (10, 2); -- José Torres en categoría masculina de equipo de 4x100 metros
+
+-- Ejemplo de inserciones en la tabla Login (asegúrate de cifrar las contraseñas)
+INSERT INTO Login (username, password, juez_id) VALUES
+('juanperez', 'ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f', 1),
+('carloslopez', 'ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f', 2),
+('luisrodriguez', 'ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f', 3),
+('miguelsanchez', 'ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f', 4),
+('anamartinez', 'ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f', 5);
+
