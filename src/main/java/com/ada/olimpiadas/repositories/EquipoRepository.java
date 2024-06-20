@@ -37,4 +37,16 @@ public class EquipoRepository implements IEquipoRepository {
         resultado.setId(rs.getInt("id"));
         return resultado;
     }
+
+    @Override
+    public LinkedList<Equipo> getEquiposPorCategoria() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getEquiposPorCategoria'");
+    }
+
+    @Override
+    public LinkedList<Equipo> getEquiposPorModalidad() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getEquiposPorModalidad'");
+    }
 }

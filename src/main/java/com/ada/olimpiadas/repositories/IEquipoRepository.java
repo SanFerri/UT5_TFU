@@ -8,4 +8,8 @@ public interface IEquipoRepository {
 
     public LinkedList<Equipo> getEquipos();
 
+    public LinkedList<Equipo> getEquiposPorCategoria();
+
+    public LinkedList<Equipo> getEquiposPorModalidad();
+
 }
