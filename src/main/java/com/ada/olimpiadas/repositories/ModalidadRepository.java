@@ -16,43 +16,45 @@ public class ModalidadRepository implements IModalidadRepository {
 
     @Override
     public LinkedList<Modalidad> getModalidades() {
-        LinkedList<Modalidad> resultado = new LinkedList<>();
-        try (Connection con = DatabaseConnection.getInstance().getConnection()) {
-            Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM Modalidad");
+        LinkedList<Modalidad> modalidades = new LinkedList<>();
+        try (Connection con = DatabaseConnection.getInstance().getConnection();
+                Statement stmt = con.createStatement();
+                ResultSet rs = stmt.executeQuery("SELECT * FROM Modalidad")) {
 
             while (rs.next()) {
-                Modalidad mod = new Modalidad();
-                mod.setId(rs.getInt("id"));
-                mod.setNombre(rs.getString("nombre"));
-                mod.setPuntaje_id(rs.getInt("puntaje_id"));
-                mod.setDisciplina_id(rs.getInt("disciplina_id"));
-
-                resultado.add(mod);
+                Modalidad mod = mapResultSetToModalidad(rs);
+                modalidades.add(mod);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return resultado;
+        return modalidades;
     }
 
     @Override
     public Modalidad getModalidad(int id) {
-        Modalidad resultado = new Modalidad();
-        try (Connection con = DatabaseConnection.getInstance().getConnection()) {
-            String query = "SELECT * FROM Modalidad WHERE id = ?";
-            PreparedStatement pstmt = con.prepareStatement(query);
-            pstmt.setInt(1, id);
-            ResultSet rs = pstmt.executeQuery();
+        Modalidad modalidad = new Modalidad();
+        try (Connection con = DatabaseConnection.getInstance().getConnection();
+                PreparedStatement pstmt = con.prepareStatement("SELECT * FROM Modalidad WHERE id = ?")) {
 
-            if (rs.next()) {
-                resultado.setId(rs.getInt("id"));
-                resultado.setDisciplina_id(rs.getInt("disciplina_id"));
-                resultado.setNombre(rs.getString("nombre"));
+            pstmt.setInt(1, id);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    modalidad = mapResultSetToModalidad(rs);
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return modalidad;
+    }
+
+    private Modalidad mapResultSetToModalidad(ResultSet rs) throws SQLException {
+        Modalidad resultado = new Modalidad();
+        resultado.setId(rs.getInt("id"));
+        resultado.setNombre(rs.getString("nombre"));
+        resultado.setPuntaje_id(rs.getInt("puntaje_id"));
+        resultado.setDisciplina_id(rs.getInt("disciplina_id"));
         return resultado;
     }
 }

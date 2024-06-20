@@ -16,9 +16,9 @@ public class PuntajeRepository implements IPuntajeRepository {
 
     @Override
     public void guardarPuntaje(Puntaje puntaje) {
-        try (Connection con = DatabaseConnection.getInstance().getConnection()) {
-            String query = "INSERT INTO Puntaje (juez_id, participante_id, categoria_id, valor_tiempo, valor_distancia, valor_estilo, valor_tecnica, faltas, round) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-            PreparedStatement pstmt = con.prepareStatement(query);
+        String query = "INSERT INTO Puntaje (juez_id, participante_id, categoria_id, valor_tiempo, valor_distancia, valor_estilo, valor_tecnica, faltas, round) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        try (Connection con = DatabaseConnection.getInstance().getConnection();
+                PreparedStatement pstmt = con.prepareStatement(query)) {
 
             pstmt.setInt(1, puntaje.getJuezId());
             pstmt.setInt(2, puntaje.getParticipanteId());
@@ -69,9 +69,10 @@ public class PuntajeRepository implements IPuntajeRepository {
     @Override
     public LinkedList<Puntaje> getCalificados() {
         LinkedList<Puntaje> resultado = new LinkedList<>();
-        try (Connection con = DatabaseConnection.getInstance().getConnection()) {
-            Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM Puntaje");
+        String query = "SELECT * FROM Puntaje";
+        try (Connection con = DatabaseConnection.getInstance().getConnection();
+                Statement stmt = con.createStatement();
+                ResultSet rs = stmt.executeQuery(query)) {
 
             while (rs.next()) {
                 Puntaje puntaje = new Puntaje();

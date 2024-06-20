@@ -10,6 +10,7 @@ import java.util.LinkedList;
 import org.springframework.stereotype.Repository;
 
 import com.ada.olimpiadas.models.Disciplina;
+import com.ada.olimpiadas.models.Modalidad;
 
 @Repository
 public class DisciplinaRepository implements IDisciplinaRepository {
@@ -22,10 +23,7 @@ public class DisciplinaRepository implements IDisciplinaRepository {
             ResultSet rs = stmt.executeQuery("SELECT * FROM Disciplina");
 
             while (rs.next()) {
-                Disciplina mod = new Disciplina();
-                mod.setId(rs.getInt("id"));
-                mod.setNombre(rs.getString("nombre"));
-
+                Disciplina mod = mapResultSetToDisciplina(rs);
                 resultado.add(mod);
             }
         } catch (SQLException e) {
@@ -44,12 +42,18 @@ public class DisciplinaRepository implements IDisciplinaRepository {
             ResultSet rs = pstmt.executeQuery();
 
             if (rs.next()) {
-                resultado.setId(rs.getInt("id"));
-                resultado.setNombre(rs.getString("nombre"));
+                resultado = mapResultSetToDisciplina(rs);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return resultado;
+    }
+
+    private Disciplina mapResultSetToDisciplina(ResultSet rs) throws SQLException {
+        Disciplina resultado = new Disciplina();
+        resultado.setId(rs.getInt("id"));
+        resultado.setNombre(rs.getString("nombre"));
         return resultado;
     }
 }

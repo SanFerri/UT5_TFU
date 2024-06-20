@@ -10,5 +10,4 @@ public interface IJuezRepository {
 
     public Juez getJuez(int id);
 
-    public boolean Puntuar();
 }

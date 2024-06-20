@@ -10,6 +10,7 @@ import java.util.LinkedList;
 import org.springframework.stereotype.Repository;
 
 import com.ada.olimpiadas.models.Categoria;
+import com.ada.olimpiadas.models.Modalidad;
 
 @Repository
 public class CategoriaRepository implements ICategoriaRepository {
@@ -22,16 +23,7 @@ public class CategoriaRepository implements ICategoriaRepository {
             ResultSet rs = stmt.executeQuery("SELECT * FROM Categoria");
 
             while (rs.next()) {
-                Categoria mod = new Categoria();
-                mod.setId(rs.getInt("id"));
-                mod.setIdModalidad(rs.getInt("id_modalidad"));
-                mod.setEdadInicio(rs.getInt("edad_inicio"));
-                mod.setEdadFin(rs.getInt("edad_fin"));
-                mod.setSexo(rs.getString("sexo"));
-                mod.setPesoInicio(rs.getInt("peso_inicio"));
-                mod.setPesoFin(rs.getInt("peso_fin"));
-                mod.setTamanoGrupo(rs.getInt("tamano_grupo"));
-
+                Categoria mod = mapResultSetToModalidad(rs);
                 resultado.add(mod);
             }
         } catch (SQLException e) {
@@ -50,18 +42,24 @@ public class CategoriaRepository implements ICategoriaRepository {
             ResultSet rs = pstmt.executeQuery();
 
             if (rs.next()) {
-                resultado.setId(rs.getInt("id"));
-                resultado.setIdModalidad(rs.getInt("id_modalidad"));
-                resultado.setEdadInicio(rs.getInt("edad_inicio"));
-                resultado.setEdadFin(rs.getInt("edad_fin"));
-                resultado.setSexo(rs.getString("sexo"));
-                resultado.setPesoInicio(rs.getInt("peso_inicio"));
-                resultado.setPesoFin(rs.getInt("peso_fin"));
-                resultado.setTamanoGrupo(rs.getInt("tamano_grupo"));
+                resultado = mapResultSetToModalidad(rs);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return resultado;
+    }
+
+    private Categoria mapResultSetToModalidad(ResultSet rs) throws SQLException {
+        Categoria resultado = new Categoria();
+        resultado.setId(rs.getInt("id"));
+        resultado.setIdModalidad(rs.getInt("id_modalidad"));
+        resultado.setEdadInicio(rs.getInt("edad_inicio"));
+        resultado.setEdadFin(rs.getInt("edad_fin"));
+        resultado.setSexo(rs.getString("sexo"));
+        resultado.setPesoInicio(rs.getInt("peso_inicio"));
+        resultado.setPesoFin(rs.getInt("peso_fin"));
+        resultado.setTamanoGrupo(rs.getInt("tamano_grupo"));
         return resultado;
     }
 }

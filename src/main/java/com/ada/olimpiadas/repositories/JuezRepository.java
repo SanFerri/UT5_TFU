@@ -11,6 +11,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Repository;
 
 import com.ada.olimpiadas.models.Juez;
+import com.ada.olimpiadas.models.Modalidad;
 
 @Repository
 public class JuezRepository implements IJuezRepository {
@@ -27,25 +28,13 @@ public class JuezRepository implements IJuezRepository {
                             "JOIN Persona ON Juez.ci = Persona.ci");
 
             while (rs.next()) {
-                Juez juez = new Juez();
-                juez.setId(rs.getInt("id"));
-                juez.setCi(rs.getString("ci"));
-                juez.setNombre(rs.getString("nombre"));
-                juez.setApellido(rs.getString("apellido"));
-                juez.setContacto(rs.getString("contacto"));
-                juez.setEmail(rs.getString("email"));
+                Juez juez = mapResultSetToJuez(rs);
                 resultado.add(juez);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return resultado;
-    }
-
-    @Override
-    public boolean Puntuar() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'Puntuar'");
     }
 
     @Override
@@ -61,16 +50,22 @@ public class JuezRepository implements IJuezRepository {
             ResultSet rs = pstmt.executeQuery();
 
             if (rs.next()) {
-                resultado.setId(rs.getInt("id"));
-                resultado.setCi(rs.getString("ci"));
-                resultado.setNombre(rs.getString("nombre"));
-                resultado.setApellido(rs.getString("apellido"));
-                resultado.setContacto(rs.getString("contacto"));
-                resultado.setEmail(rs.getString("email"));
+                resultado = mapResultSetToJuez(rs);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return resultado;
+    }
+
+    private Juez mapResultSetToJuez(ResultSet rs) throws SQLException {
+        Juez resultado = new Juez();
+        resultado.setId(rs.getInt("id"));
+        resultado.setCi(rs.getString("ci"));
+        resultado.setNombre(rs.getString("nombre"));
+        resultado.setApellido(rs.getString("apellido"));
+        resultado.setContacto(rs.getString("contacto"));
+        resultado.setEmail(rs.getString("email"));
         return resultado;
     }
 }
