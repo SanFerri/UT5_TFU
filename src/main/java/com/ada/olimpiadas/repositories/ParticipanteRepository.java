@@ -102,7 +102,7 @@ public class ParticipanteRepository implements IParticipanteRepository {
 
     public LinkedList<Participante> getParticipantesPorEquipo(int equipoId) {
         LinkedList<Participante> resultado = new LinkedList<>();
-        String query = "SELECT p.* FROM Participante p JOIN Equipo e ON p.equipo_id = e.id WHERE p.equipo_id = ?";
+        String query = "SELECT Participante.*, Persona.* FROM Participante JOIN Persona ON Participante.ci = Persona.ci JOIN Equipo e ON Participante.equipo_id = e.id WHERE Participante.equipo_id = ?";
 
         try (Connection con = DatabaseConnection.getInstance().getConnection();
                 PreparedStatement pstmt = con.prepareStatement(query)) {

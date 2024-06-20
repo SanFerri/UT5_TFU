@@ -58,12 +58,13 @@ create table Equipo (
 );
 
 create table Participante (
-    id int auto_increment PRIMARY KEY NOT NULL,
+    id int auto_increment NOT NULL,
     ci VARCHAR(10) NOT NULL,
     edad int NOT NULL,
     peso int NOT NULL,
     modalidad_id int NOT NULL,
     equipo_id int,
+    primary key (id, ci),
     FOREIGN KEY (ci) REFERENCES Persona(ci),
     FOREIGN KEY (modalidad_id) REFERENCES Modalidad(id),
     FOREIGN KEY (equipo_id) REFERENCES Equipo(id)
@@ -272,4 +273,3 @@ INSERT INTO Login (username, password, juez_id) VALUES
 ('luisrodriguez', 'ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f', 3),
 ('miguelsanchez', 'ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f', 4),
 ('anamartinez', 'ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f', 5);
-
