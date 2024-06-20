@@ -8,7 +8,7 @@ public class TipoPuntaje {
     private boolean mideEstilo;
     private boolean mideTecnica;
     private boolean cuentaFaltas;
-    private short cantidadRounds;
+    private int cantidadRounds;
 
     public int getId() {
         return id;
@@ -66,11 +66,11 @@ public class TipoPuntaje {
         this.cuentaFaltas = cuentaFaltas;
     }
 
-    public short getCantidadRounds() {
+    public int getCantidadRounds() {
         return cantidadRounds;
     }
 
-    public void setCantidadRounds(short cantidadRounds) {
+    public void setCantidadRounds(int cantidadRounds) {
         this.cantidadRounds = cantidadRounds;
     }
 
