@@ -13,4 +13,7 @@ public interface IParticipanteRepository {
 
     public LinkedList<Participante> getParticipantesPorCategoria(int categoriaId);
 
+    public LinkedList<Participante> getParticipantesPorEquipo(int equipoId);
+
+
 }

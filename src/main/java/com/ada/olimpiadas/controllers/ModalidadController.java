@@ -12,7 +12,7 @@ import com.ada.olimpiadas.models.Modalidad;
 import com.ada.olimpiadas.repositories.IModalidadRepository;
 
 @RestController
-@RequestMapping("/juez")
+@RequestMapping("/modalidad")
 public class ModalidadController {
 
     @Autowired

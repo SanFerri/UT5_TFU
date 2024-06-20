@@ -8,9 +8,7 @@ import java.sql.Statement;
 import java.util.LinkedList;
 
 import org.springframework.stereotype.Repository;
-
 import com.ada.olimpiadas.models.Categoria;
-import com.ada.olimpiadas.models.Modalidad;
 
 @Repository
 public class CategoriaRepository implements ICategoriaRepository {

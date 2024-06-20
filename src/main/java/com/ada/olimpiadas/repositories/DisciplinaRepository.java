@@ -10,7 +10,6 @@ import java.util.LinkedList;
 import org.springframework.stereotype.Repository;
 
 import com.ada.olimpiadas.models.Disciplina;
-import com.ada.olimpiadas.models.Modalidad;
 
 @Repository
 public class DisciplinaRepository implements IDisciplinaRepository {

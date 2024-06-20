@@ -11,7 +11,6 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Repository;
 
 import com.ada.olimpiadas.models.Juez;
-import com.ada.olimpiadas.models.Modalidad;
 
 @Repository
 public class JuezRepository implements IJuezRepository {

@@ -14,7 +14,7 @@ import com.ada.olimpiadas.models.Participante;
 import com.ada.olimpiadas.repositories.IParticipanteRepository;
 
 @RestController
-@RequestMapping("/juez")
+@RequestMapping("/participantes")
 public class ParticipanteController {
 
     private IParticipanteRepository participanteRepository;
@@ -34,14 +34,19 @@ public class ParticipanteController {
         return participanteRepository.getParticipante(id);
     }
 
-    @GetMapping(path = "/modalidad/{ModalidadId}/participantes")
+    @GetMapping(path = "/listaParticipantes/modalidad/{ModalidadId}")
     public List<Participante> getParticipantesPorModalidad(@PathVariable int ModalidadId) {
         return participanteRepository.getParticipantesPorModalidad(ModalidadId);
     }
 
-    @GetMapping(path = "/categoria/{CategoriaId}/participantes")
+    @GetMapping(path = "/listaParticipantes/categoria/{CategoriaId}")
     public List<Participante> getParticipantesPorCategoria(@PathVariable int CategoriaId) {
         return participanteRepository.getParticipantesPorCategoria(CategoriaId);
+    }
+
+    @GetMapping(path = "/listaParticipantes/equipo/{equipoId}")
+    public List<Participante> getParticipantesPorEquipo(@PathVariable int equipoId) {
+        return participanteRepository.getParticipantesPorEquipo(equipoId);
     }
 
 }

@@ -17,14 +17,11 @@ public class ParticipanteRepository implements IParticipanteRepository {
     @Override
     public LinkedList<Participante> getParticipantes() {
         LinkedList<Participante> resultado = new LinkedList<>();
-        String query = "SELECT Participante.id, Participante.ci, Participante.edad, Participante.peso, Participante.modalidad_id, "
-                + "Persona.nombre, Persona.apellido, Persona.contacto, Persona.email "
-                + "FROM Participante "
-                + "JOIN Persona ON Participante.ci = Persona.ci";
-        
+        String query = "SELECT Participante.*, Persona.* FROM Participante JOIN Persona ON Participante.ci = Persona.ci";
+
         try (Connection con = DatabaseConnection.getInstance().getConnection();
-             Statement stmt = con.createStatement();
-             ResultSet rs = stmt.executeQuery(query)) {
+                Statement stmt = con.createStatement();
+                ResultSet rs = stmt.executeQuery(query)) {
 
             while (rs.next()) {
                 Participante participante = mapParticipante(rs);
@@ -39,13 +36,10 @@ public class ParticipanteRepository implements IParticipanteRepository {
     @Override
     public Participante getParticipante(int id) {
         Participante resultado = new Participante();
-        String query = "SELECT Participante.id, Participante.ci, Participante.edad, Participante.peso, Participante.modalidad_id, "
-                + "Persona.nombre, Persona.apellido, Persona.contacto, Persona.email "
-                + "FROM Participante "
-                + "JOIN Persona ON Participante.ci = Persona.ci WHERE Participante.id = ?";
-        
+        String query = "SELECT Participante.*, Persona.* FROM Participante JOIN Persona ON Participante.ci = Persona.ci WHERE Participante.id = ?";
+
         try (Connection con = DatabaseConnection.getInstance().getConnection();
-             PreparedStatement pstmt = con.prepareStatement(query)) {
+                PreparedStatement pstmt = con.prepareStatement(query)) {
 
             pstmt.setInt(1, id);
             try (ResultSet rs = pstmt.executeQuery()) {
@@ -65,9 +59,9 @@ public class ParticipanteRepository implements IParticipanteRepository {
         String query = "SELECT Participante.*, Persona.* "
                 + "FROM Participante "
                 + "JOIN Persona ON Participante.ci = Persona.ci where Participante.modalidad_id = ?";
-        
+
         try (Connection con = DatabaseConnection.getInstance().getConnection();
-             PreparedStatement pstmt = con.prepareStatement(query)) {
+                PreparedStatement pstmt = con.prepareStatement(query)) {
 
             pstmt.setInt(1, modalidadId);
             try (ResultSet rs = pstmt.executeQuery()) {
@@ -85,17 +79,35 @@ public class ParticipanteRepository implements IParticipanteRepository {
     @Override
     public LinkedList<Participante> getParticipantesPorCategoria(int categoriaId) {
         LinkedList<Participante> resultado = new LinkedList<>();
-        String query = "SELECT Participante.id, Participante.ci, Participante.edad, Participante.peso, Participante.modalidad_id, "
-                + "Persona.nombre, Persona.apellido, Persona.contacto, Persona.email "
-                + "FROM Participante "
+        String query = "SELECT Participante.*, Persona.* FROM Participante "
                 + "JOIN Persona ON Participante.ci = Persona.ci "
                 + "JOIN Participacion ON Participante.id = Participacion.participante_id "
                 + "WHERE Participacion.categoria_id = ?";
-        
+
         try (Connection con = DatabaseConnection.getInstance().getConnection();
-             PreparedStatement pstmt = con.prepareStatement(query)) {
+                PreparedStatement pstmt = con.prepareStatement(query)) {
 
             pstmt.setInt(1, categoriaId);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    Participante participante = mapParticipante(rs);
+                    resultado.add(participante);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return resultado;
+    }
+
+    public LinkedList<Participante> getParticipantesPorEquipo(int equipoId) {
+        LinkedList<Participante> resultado = new LinkedList<>();
+        String query = "SELECT p.* FROM Participante p JOIN Equipo e ON p.equipo_id = e.id WHERE p.equipo_id = ?";
+
+        try (Connection con = DatabaseConnection.getInstance().getConnection();
+                PreparedStatement pstmt = con.prepareStatement(query)) {
+
+            pstmt.setInt(1, equipoId);
             try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
                     Participante participante = mapParticipante(rs);
@@ -119,6 +131,8 @@ public class ParticipanteRepository implements IParticipanteRepository {
         participante.setApellido(rs.getString("apellido"));
         participante.setContacto(rs.getString("contacto"));
         participante.setEmail(rs.getString("email"));
+        participante.setEquipoId(rs.getInt("equipo_id"));
+
         return participante;
     }
 }

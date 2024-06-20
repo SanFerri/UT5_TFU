@@ -6,6 +6,7 @@ public class Participante extends Persona {
     private int edad;
     private int peso;
     private int modalidadId;
+    private int equipoId;
 
     public int getId() {
         return id;
@@ -45,5 +46,13 @@ public class Participante extends Persona {
 
     public void setModalidadId(int modalidadId) {
         this.modalidadId = modalidadId;
+    }
+
+    public int getEquipoId() {
+        return equipoId;
+    }
+
+    public void setEquipoId(int equipoId) {
+        this.equipoId = equipoId;
     }
 }

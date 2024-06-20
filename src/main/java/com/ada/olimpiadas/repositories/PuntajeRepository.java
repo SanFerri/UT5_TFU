@@ -15,7 +15,7 @@ import com.ada.olimpiadas.models.Puntaje;
 public class PuntajeRepository implements IPuntajeRepository {
 
     @Override
-    public void guardarPuntaje(Puntaje puntaje) {
+    public void puntuarParticipante(Puntaje puntaje) {
         String query = "INSERT INTO Puntaje (juez_id, participante_id, categoria_id, valor_tiempo, valor_distancia, valor_estilo, valor_tecnica, faltas, round) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection con = DatabaseConnection.getInstance().getConnection();
                 PreparedStatement pstmt = con.prepareStatement(query)) {

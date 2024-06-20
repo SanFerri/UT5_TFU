@@ -1,7 +1,5 @@
 package com.ada.olimpiadas.models;
 
-import java.sql.Time;
-
 public class Puntaje {
     private int id;
     private int juezId;

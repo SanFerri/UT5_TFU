@@ -14,7 +14,7 @@ import com.ada.olimpiadas.repositories.ICategoriaRepository;
 
 
 @RestController
-@RequestMapping("/juez")
+@RequestMapping("/categoria")
 public class CategoriaController {
 
     @Autowired

@@ -12,7 +12,7 @@ import com.ada.olimpiadas.models.Disciplina;
 import com.ada.olimpiadas.repositories.IDisciplinaRepository;
 
 @RestController
-@RequestMapping("/juez")
+@RequestMapping("/disciplina")
 public class DisciplinaController {
     @Autowired
     private IDisciplinaRepository disciplinaRepository;

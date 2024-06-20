@@ -16,7 +16,7 @@ import com.ada.olimpiadas.repositories.IPuntajeRepository;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @RestController
-@RequestMapping("/juez")
+@RequestMapping("/puntaje")
 public class PuntajeController {
 
     @Autowired
@@ -25,7 +25,7 @@ public class PuntajeController {
     @PostMapping("/puntuar")
     public ResponseEntity<String> puntuar(@RequestBody Puntaje puntaje) {
         try {
-            puntajeRepository.guardarPuntaje(puntaje);
+            puntajeRepository.puntuarParticipante(puntaje);
             return ResponseEntity.ok("Puntuación guardada exitosamente");
         } catch (Exception e) {
             return ResponseEntity.status(500).body("Error al guardar la puntuación: " + e.getMessage());

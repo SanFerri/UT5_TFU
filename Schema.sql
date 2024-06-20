@@ -53,14 +53,20 @@ create table Juez (
     FOREIGN KEY (ci) REFERENCES Persona(ci)
 );
 
+create table Equipo (
+    id int PRIMARY KEY NOT NULL
+);
+
 create table Participante (
     id int auto_increment PRIMARY KEY NOT NULL,
     ci VARCHAR(10) NOT NULL,
     edad int NOT NULL,
     peso int NOT NULL,
     modalidad_id int NOT NULL,
+    equipo_id int,
     FOREIGN KEY (ci) REFERENCES Persona(ci),
-    FOREIGN KEY (modalidad_id) REFERENCES Modalidad(id)
+    FOREIGN KEY (modalidad_id) REFERENCES Modalidad(id),
+    FOREIGN KEY (equipo_id) REFERENCES Equipo(id)
 );
 
 create table Participacion(
@@ -116,8 +122,8 @@ VALUES
     ('Esgrima'),
     ('Surf'),
     ('Kitesurf');
-
-INSERT INTO TipoPuntaje (mide_tiempo,mide_distancia,mide_altura,mide_estilo,mide_tecnica,cuenta_faltas,cantidad_rounds)
+    
+    INSERT INTO TipoPuntaje (mide_tiempo,mide_distancia,mide_altura,mide_estilo,mide_tecnica,cuenta_faltas,cantidad_rounds)
 VALUES
     (TRUE, FALSE,FALSE, FALSE, FALSE, FALSE, 1),
     (TRUE, TRUE, FALSE,FALSE, TRUE, FALSE, 1),
@@ -127,6 +133,7 @@ VALUES
     ( FALSE, FALSE,FALSE, TRUE, TRUE, TRUE, 1),
     (FALSE, FALSE,FALSE, TRUE, TRUE, FALSE, 1),
     (FALSE, FALSE,TRUE, TRUE, FALSE, FALSE, 1);
+
 
 INSERT INTO
     Modalidad (nombre, disciplina_id, puntaje_id)
@@ -201,7 +208,6 @@ VALUES
 (8, 'femenino', 1, 18, 35, null, null),
 (8, 'femenino', 4, 18, 35, null, null);
 
-
 INSERT INTO Persona (ci, nombre, apellido, contacto, email) VALUES
 ('1234567890', 'Juan', 'Pérez', '555-1234', 'juan.perez@example.com'),
 ('0987654321', 'Carlos', 'López', '555-5678', 'carlos.lopez@example.com'),
@@ -214,6 +220,22 @@ INSERT INTO Persona (ci, nombre, apellido, contacto, email) VALUES
 ('3344556677', 'Pedro', 'Gutiérrez', '555-2211', 'pedro.gutierrez@example.com'),
 ('7788990011', 'José', 'Torres', '555-3344', 'jose.torres@example.com');
 
+INSERT INTO Equipo (id) VALUES (1);
+INSERT INTO Equipo (id) VALUES (2);
+
+INSERT INTO Participante (ci, edad, peso, modalidad_id, equipo_id) VALUES
+('1234567890', 25, 70, 1, 1), -- Juan Pérez en 400 metros
+('0987654321', 28, 75, 2, 2), -- Carlos López en 4x100 metros
+('1122334455', 22, 68, 1, 1), -- Luis Rodríguez en 400 metros
+('5566778899', 30, 80, 3, 2), -- Miguel Sánchez en 4x400 metros
+('6677889900', 26, 60, 1, 1), -- Ana Martínez en 400 metros
+('9988776655', 24, 58, 2, null), -- María Gómez en 4x100 metros
+('4455667788', 27, 62, 3, null), -- Laura Fernández en 4x400 metros
+('2233445566', 29, 63, 1, 1), -- Carmen Ruiz en 400 metros
+('3344556677', 23, 70, 1, 1), -- Pedro Gutiérrez en 400 metros
+('7788990011', 31, 82, 2, null); -- José Torres en 4x100 metros
+
+
 INSERT INTO Juez (ci) VALUES
 ('1234567890'), -- Juan Pérez
 ('0987654321'), -- Carlos López
@@ -221,18 +243,6 @@ INSERT INTO Juez (ci) VALUES
 ('5566778899'), -- Miguel Sánchez
 ('6677889900'); -- Ana Martínez
 
-
-INSERT INTO Participante (ci, edad, peso, modalidad_id) VALUES
-('1234567890', 25, 70, 1), -- Juan Pérez en 400 metros
-('0987654321', 28, 75, 2), -- Carlos López en 4x100 metros
-('1122334455', 22, 68, 1), -- Luis Rodríguez en 400 metros
-('5566778899', 30, 80, 3), -- Miguel Sánchez en 4x400 metros
-('6677889900', 26, 60, 1), -- Ana Martínez en 400 metros
-('9988776655', 24, 58, 2), -- María Gómez en 4x100 metros
-('4455667788', 27, 62, 3), -- Laura Fernández en 4x400 metros
-('2233445566', 29, 63, 1), -- Carmen Ruiz en 400 metros
-('3344556677', 23, 70, 1), -- Pedro Gutiérrez en 400 metros
-('7788990011', 31, 82, 2); -- José Torres en 4x100 metros
 
 -- Inserciones de prueba en Participacion
 INSERT INTO Participacion (participante_id, categoria_id) VALUES
